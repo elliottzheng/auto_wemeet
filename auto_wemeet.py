@@ -8,6 +8,12 @@ cmd = cmd.replace("{PHTHON_PATH}", sys.executable)
 cmd = cmd.replace("{SCRIPT_PATH}", os.path.abspath(__file__))
 
 
+def read_config(encoding):
+    with open("meetings.txt",encoding=encoding) as f:
+        lines = f.readlines()
+    return lines
+
+
 def get_task_name(m_code,m_time):
     return f"AUTO_WEMEET-{m_code}-{m_time}"
 
@@ -15,8 +21,10 @@ def convert_time(m_time):
     return str(m_time).replace(" ","_").replace("-","_").replace(":","_")
 
 def schedule():
-    with open("meetings.txt") as f:
-        lines = f.readlines()
+    try:
+        lines = read_config('utf-8')
+    except:
+        lines = read_config("gb2312")
     now_time = datetime.now()
     meetings = []
     for line in lines:
