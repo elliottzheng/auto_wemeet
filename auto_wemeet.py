@@ -47,8 +47,8 @@ def schedule():
             if datetime.now() < n_time:
                 break
         print("Schduling", m_code, "at", n_time)
-        sd, st = str(n_time).split()
-        
+        sd = n_time.strftime("%Y/%m/%d")
+        st = n_time.strftime("%H:%M")
         task_name = get_task_name(m_code,convert_time(m_time))
         real_cmd = cmd.replace("meeting_code", task_name)
         os.system(
